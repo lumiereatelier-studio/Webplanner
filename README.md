@@ -1,23 +1,11 @@
-# 🌊 ZenFlow
 
-**Organize Life. Find Flow.**
+  # zenflow
 
-A beautiful, comprehensive life management system with dual themes (Soft & Noir), built with React and Tailwind CSS.
+  This is a code bundle for zenflow. The original project is available at https://www.figma.com/design/W1ZnLIUVKTxT7e6UBSgbtY/zenflow.
 
-## ✨ Features
+  ## Running the code
 
-- 📊 **Projects & Task Management** - Organize your work and life projects
-- 🎯 **Goals & Habit Tracking** - Set and achieve your goals with daily habits
-- 💝 **Relationship Manager** - Keep track of important people in your life
-- ⚖️ **Life Balance Wheel** - Visualize and improve life balance
-- 📝 **Weekly Reviews** - Reflect and plan with guided prompts
-- 💰 **Finance Tracker** - Monitor income, expenses, and savings
-- 📌 **Notes & Someday/Maybe** - Capture ideas and future plans
-- 🎨 **Beautiful Themes** - Toggle between Soft (warm beige) and Noir (dark) modes
+  Run `npm i` to install the dependencies.
 
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-npm install
+  Run `npm run dev` to start the development server.
+  

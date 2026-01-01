@@ -112,6 +112,8 @@ export interface SomedayItem {
 }
 
 export default function App() {
+  console.log('🟢 APP.TSX IS LOADING!!!');
+  
   const [theme, setTheme] = useState<Theme>('soft');
   const [currentSection, setCurrentSection] = useState<Section>('dashboard');
   
@@ -212,7 +214,7 @@ export default function App() {
 
   const [showWelcome, setShowWelcome] = useState<boolean>(true);
 
-  // Track if component has mounted to prevent saving default data on first render
+  // Track if initial load is complete
   const hasMounted = useRef(false);
 
   const toggleTheme = () => {
@@ -221,7 +223,9 @@ export default function App() {
 
   const handleCloseWelcome = () => {
     setShowWelcome(false);
+    console.log('🔴 CLOSING WELCOME - Saving to localStorage...');
     saveToStorage(STORAGE_KEYS.WELCOME_SEEN, true);
+    console.log('🔴 Saved! Check:', localStorage.getItem(STORAGE_KEYS.WELCOME_SEEN));
   };
 
   // Load all data from localStorage on mount
@@ -254,8 +258,10 @@ export default function App() {
     setTheme(savedTheme);
     setShowWelcome(!welcomeSeen);
     
-    // Mark as mounted AFTER loading completes
-    hasMounted.current = true;
+    // Use setTimeout to ensure auto-save enables AFTER initial load completes
+    setTimeout(() => {
+      hasMounted.current = true;
+    }, 100);
   }, []);
 
   // Auto-save data to localStorage whenever it changes (but not on first render)
