@@ -1,0 +1,348 @@
+import React, { useState, useEffect } from 'react';
+import { Navigation } from './components/Navigation';
+import { ThemeToggle } from './components/ThemeToggle';
+import { WelcomeModal } from './components/WelcomeModal';
+import { Dashboard } from './components/Dashboard';
+import { ProjectsSection } from './components/ProjectsSection';
+import { TasksSection } from './components/TasksSection';
+import { NotesSection } from './components/NotesSection';
+import { GoalsSection } from './components/GoalsSection';
+import { FinanceSection } from './components/FinanceSection';
+import { HabitsSection } from './components/HabitsSection';
+import { RelationshipsSection } from './components/RelationshipsSection';
+import { ReviewsSection } from './components/ReviewsSection';
+import { BalanceSection } from './components/BalanceSection';
+import { SomedaySection } from './components/SomedaySection';
+import { STORAGE_KEYS, saveToStorage, loadFromStorage } from './utils/storage';
+
+export type Theme = 'soft' | 'noir';
+export type Section = 'dashboard' | 'projects' | 'tasks' | 'notes' | 'goals' | 'finance' | 'habits' | 'relationships' | 'reviews' | 'balance' | 'someday';
+
+export interface Project {
+  id: string;
+  label: string;
+  name: string;
+  notes: string;
+  goals: string;
+  actionFocus: string;
+  detailedNotes: string;
+  resources: string;
+  timeline: string;
+  status: string;
+}
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  priority: 'Low' | 'Medium' | 'High';
+  dueDate: string;
+  completed: boolean;
+  project?: string;
+}
+
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  createdAt: string;
+}
+
+export interface Goal {
+  id: string;
+  title: string;
+  description: string;
+  timeframe: string;
+  progress: number;
+  milestones: string;
+}
+
+export interface FinanceEntry {
+  id: string;
+  type: 'income' | 'expense';
+  category: string;
+  amount: number;
+  description: string;
+  date: string;
+}
+
+export interface Habit {
+  id: string;
+  name: string;
+  frequency: string;
+  streak: number;
+  completedDates: string[];
+}
+
+export interface Relationship {
+  id: string;
+  name: string;
+  category: string;
+  lastContact: string;
+  nextAction: string;
+  birthday?: string;
+  notes: string;
+  frequency: string;
+}
+
+export interface WeeklyReview {
+  id: string;
+  weekOf: string;
+  wins: string;
+  challenges: string;
+  lessons: string;
+  nextWeekFocus: string;
+  gratitude: string;
+}
+
+export interface LifeArea {
+  id: string;
+  name: string;
+  score: number;
+  notes: string;
+}
+
+export interface SomedayItem {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  addedDate: string;
+}
+
+export default function App() {
+  const [theme, setTheme] = useState<Theme>('soft');
+  const [currentSection, setCurrentSection] = useState<Section>('dashboard');
+  
+  const [projects, setProjects] = useState<Project[]>([
+    {
+      id: '1',
+      label: 'Work',
+      name: 'Q1 Marketing Campaign',
+      notes: 'Launch new product line campaign',
+      goals: 'Increase brand awareness by 30%',
+      actionFocus: 'Finalize creative assets',
+      detailedNotes: '',
+      resources: '',
+      timeline: 'Jan - Mar 2025',
+      status: 'In Progress'
+    }
+  ]);
+
+  const [tasks, setTasks] = useState<Task[]>([
+    {
+      id: '1',
+      title: 'Review marketing budget',
+      description: '',
+      priority: 'High',
+      dueDate: '2025-01-15',
+      completed: false
+    }
+  ]);
+
+  const [notes, setNotes] = useState<Note[]>([
+    {
+      id: '1',
+      title: 'Meeting Notes',
+      content: 'Key points from today\'s discussion...',
+      category: 'Work',
+      createdAt: new Date().toISOString()
+    }
+  ]);
+
+  const [goals, setGoals] = useState<Goal[]>([
+    {
+      id: '1',
+      title: 'Learn Spanish',
+      description: 'Achieve conversational fluency',
+      timeframe: '6 months',
+      progress: 25,
+      milestones: 'Complete beginner course, Practice daily'
+    }
+  ]);
+
+  const [financeEntries, setFinanceEntries] = useState<FinanceEntry[]>([]);
+  
+  const [habits, setHabits] = useState<Habit[]>([
+    {
+      id: '1',
+      name: 'Morning Exercise',
+      frequency: 'Daily',
+      streak: 7,
+      completedDates: []
+    }
+  ]);
+
+  const [relationships, setRelationships] = useState<Relationship[]>([
+    {
+      id: '1',
+      name: 'Sarah Chen',
+      category: 'Friend',
+      lastContact: '2024-12-20',
+      nextAction: 'Coffee catch-up',
+      birthday: '1990-05-15',
+      notes: 'Met at university. Working on startup.',
+      frequency: 'Monthly'
+    }
+  ]);
+
+  const [reviews, setReviews] = useState<WeeklyReview[]>([]);
+
+  const [lifeAreas, setLifeAreas] = useState<LifeArea[]>([
+    { id: '1', name: 'Health & Fitness', score: 7, notes: '' },
+    { id: '2', name: 'Career & Work', score: 8, notes: '' },
+    { id: '3', name: 'Relationships', score: 6, notes: '' },
+    { id: '4', name: 'Personal Growth', score: 7, notes: '' },
+    { id: '5', name: 'Finance', score: 5, notes: '' },
+    { id: '6', name: 'Recreation & Fun', score: 6, notes: '' },
+    { id: '7', name: 'Environment', score: 7, notes: '' },
+    { id: '8', name: 'Contribution', score: 5, notes: '' },
+  ]);
+
+  const [somedayItems, setSomedayItems] = useState<SomedayItem[]>([
+    {
+      id: '1',
+      title: 'Learn to play piano',
+      description: 'Always wanted to learn an instrument',
+      category: 'Personal',
+      addedDate: new Date().toISOString()
+    }
+  ]);
+
+  const [showWelcome, setShowWelcome] = useState<boolean>(true);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'soft' ? 'noir' : 'soft');
+  };
+
+  const handleCloseWelcome = () => {
+    setShowWelcome(false);
+    saveToStorage(STORAGE_KEYS.WELCOME_SEEN, true);
+  };
+
+  const renderSection = () => {
+    switch (currentSection) {
+      case 'dashboard':
+        return (
+          <Dashboard
+            theme={theme}
+            projects={projects}
+            tasks={tasks}
+            goals={goals}
+            habits={habits}
+            onNavigate={setCurrentSection}
+          />
+        );
+      case 'projects':
+        return (
+          <ProjectsSection
+            theme={theme}
+            projects={projects}
+            setProjects={setProjects}
+          />
+        );
+      case 'tasks':
+        return (
+          <TasksSection
+            theme={theme}
+            tasks={tasks}
+            setTasks={setTasks}
+            projects={projects}
+          />
+        );
+      case 'notes':
+        return (
+          <NotesSection
+            theme={theme}
+            notes={notes}
+            setNotes={setNotes}
+          />
+        );
+      case 'goals':
+        return (
+          <GoalsSection
+            theme={theme}
+            goals={goals}
+            setGoals={setGoals}
+          />
+        );
+      case 'finance':
+        return (
+          <FinanceSection
+            theme={theme}
+            entries={financeEntries}
+            setEntries={setFinanceEntries}
+          />
+        );
+      case 'habits':
+        return (
+          <HabitsSection
+            theme={theme}
+            habits={habits}
+            setHabits={setHabits}
+          />
+        );
+      case 'relationships':
+        return (
+          <RelationshipsSection
+            theme={theme}
+            relationships={relationships}
+            setRelationships={setRelationships}
+          />
+        );
+      case 'reviews':
+        return (
+          <ReviewsSection
+            theme={theme}
+            reviews={reviews}
+            setReviews={setReviews}
+          />
+        );
+      case 'balance':
+        return (
+          <BalanceSection
+            theme={theme}
+            lifeAreas={lifeAreas}
+            setLifeAreas={setLifeAreas}
+          />
+        );
+      case 'someday':
+        return (
+          <SomedaySection
+            theme={theme}
+            items={somedayItems}
+            setItems={setSomedayItems}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  useEffect(() => {
+    const savedTheme = loadFromStorage(STORAGE_KEYS.THEME) as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.THEME, theme);
+  }, [theme]);
+
+  return (
+    <div className={`min-h-screen ${theme === 'soft' ? 'bg-[#f5f1ed]' : 'bg-[#0a0a0a]'}`}>
+      {showWelcome && <WelcomeModal theme={theme} onClose={handleCloseWelcome} />}
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      <Navigation
+        theme={theme}
+        currentSection={currentSection}
+        onNavigate={setCurrentSection}
+      />
+      <div className="lg:pl-64">
+        {renderSection()}
+      </div>
+    </div>
+  );
+}
