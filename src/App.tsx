@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navigation } from './components/Navigation';
 import { ThemeToggle } from './components/ThemeToggle';
 import { WelcomeModal } from './components/WelcomeModal';
@@ -212,6 +212,9 @@ export default function App() {
 
   const [showWelcome, setShowWelcome] = useState<boolean>(true);
 
+  // Track if component has mounted to prevent saving default data on first render
+  const hasMounted = useRef(false);
+
   const toggleTheme = () => {
     setTheme(theme === 'soft' ? 'noir' : 'soft');
   };
@@ -220,6 +223,105 @@ export default function App() {
     setShowWelcome(false);
     saveToStorage(STORAGE_KEYS.WELCOME_SEEN, true);
   };
+
+  // Load all data from localStorage on mount
+  useEffect(() => {
+    const savedProjects = loadFromStorage<Project[]>(STORAGE_KEYS.PROJECTS, []);
+    const savedTasks = loadFromStorage<Task[]>(STORAGE_KEYS.TASKS, []);
+    const savedNotes = loadFromStorage<Note[]>(STORAGE_KEYS.NOTES, []);
+    const savedGoals = loadFromStorage<Goal[]>(STORAGE_KEYS.GOALS, []);
+    const savedFinance = loadFromStorage<FinanceEntry[]>(STORAGE_KEYS.FINANCE, []);
+    const savedHabits = loadFromStorage<Habit[]>(STORAGE_KEYS.HABITS, []);
+    const savedRelationships = loadFromStorage<Relationship[]>(STORAGE_KEYS.RELATIONSHIPS, []);
+    const savedReviews = loadFromStorage<WeeklyReview[]>(STORAGE_KEYS.REVIEWS, []);
+    const savedLifeAreas = loadFromStorage<LifeArea[]>(STORAGE_KEYS.LIFE_AREAS, []);
+    const savedSomeday = loadFromStorage<SomedayItem[]>(STORAGE_KEYS.SOMEDAY, []);
+    const savedTheme = loadFromStorage<Theme>(STORAGE_KEYS.THEME, 'soft');
+    const welcomeSeen = loadFromStorage<boolean>(STORAGE_KEYS.WELCOME_SEEN, false);
+
+    // Only load saved data if it exists, otherwise keep default data
+    if (savedProjects.length > 0) setProjects(savedProjects);
+    if (savedTasks.length > 0) setTasks(savedTasks);
+    if (savedNotes.length > 0) setNotes(savedNotes);
+    if (savedGoals.length > 0) setGoals(savedGoals);
+    if (savedFinance.length > 0) setFinanceEntries(savedFinance);
+    if (savedHabits.length > 0) setHabits(savedHabits);
+    if (savedRelationships.length > 0) setRelationships(savedRelationships);
+    if (savedReviews.length > 0) setReviews(savedReviews);
+    if (savedLifeAreas.length > 0) setLifeAreas(savedLifeAreas);
+    if (savedSomeday.length > 0) setSomedayItems(savedSomeday);
+    
+    setTheme(savedTheme);
+    setShowWelcome(!welcomeSeen);
+    
+    // Mark as mounted AFTER loading completes
+    hasMounted.current = true;
+  }, []);
+
+  // Auto-save data to localStorage whenever it changes (but not on first render)
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.PROJECTS, projects);
+    }
+  }, [projects]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.TASKS, tasks);
+    }
+  }, [tasks]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.NOTES, notes);
+    }
+  }, [notes]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.GOALS, goals);
+    }
+  }, [goals]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.FINANCE, financeEntries);
+    }
+  }, [financeEntries]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.HABITS, habits);
+    }
+  }, [habits]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.RELATIONSHIPS, relationships);
+    }
+  }, [relationships]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.REVIEWS, reviews);
+    }
+  }, [reviews]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.LIFE_AREAS, lifeAreas);
+    }
+  }, [lifeAreas]);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      saveToStorage(STORAGE_KEYS.SOMEDAY, somedayItems);
+    }
+  }, [somedayItems]);
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.THEME, theme);
+  }, [theme]);
 
   const renderSection = () => {
     switch (currentSection) {
@@ -319,17 +421,6 @@ export default function App() {
         return null;
     }
   };
-
-  useEffect(() => {
-    const savedTheme = loadFromStorage(STORAGE_KEYS.THEME) as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.THEME, theme);
-  }, [theme]);
 
   return (
     <div className={`min-h-screen ${theme === 'soft' ? 'bg-[#f5f1ed]' : 'bg-[#0a0a0a]'}`}>
