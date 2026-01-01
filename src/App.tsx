@@ -129,6 +129,30 @@ export default function App() {
       resources: '',
       timeline: 'Jan - Mar 2025',
       status: 'In Progress'
+    },
+    {
+      id: '2',
+      label: 'Personal',
+      name: 'Home Renovation',
+      notes: 'Kitchen and bathroom updates',
+      goals: 'Modernize living space',
+      actionFocus: 'Get contractor quotes',
+      detailedNotes: '',
+      resources: '',
+      timeline: 'Feb - Apr 2025',
+      status: 'In Progress'
+    },
+    {
+      id: '3',
+      label: 'Work',
+      name: 'Product Launch',
+      notes: 'New mobile app release',
+      goals: '10k downloads in first month',
+      actionFocus: 'Beta testing',
+      detailedNotes: '',
+      resources: '',
+      timeline: 'Mar 2025',
+      status: 'Planning'
     }
   ]);
 
@@ -138,7 +162,31 @@ export default function App() {
       title: 'Review marketing budget',
       description: '',
       priority: 'High',
-      dueDate: '2025-01-15',
+      dueDate: new Date().toISOString().split('T')[0],
+      completed: false
+    },
+    {
+      id: '2',
+      title: 'Prepare presentation slides',
+      description: 'Q1 review meeting',
+      priority: 'High',
+      dueDate: new Date().toISOString().split('T')[0],
+      completed: false
+    },
+    {
+      id: '3',
+      title: 'Call contractor about kitchen',
+      description: 'Discuss timeline and pricing',
+      priority: 'Medium',
+      dueDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      completed: false
+    },
+    {
+      id: '4',
+      title: 'Book dentist appointment',
+      description: 'Regular checkup',
+      priority: 'Low',
+      dueDate: new Date(Date.now() + 172800000).toISOString().split('T')[0],
       completed: false
     }
   ]);
@@ -161,10 +209,51 @@ export default function App() {
       timeframe: '6 months',
       progress: 25,
       milestones: 'Complete beginner course, Practice daily'
+    },
+    {
+      id: '2',
+      title: 'Run a Half Marathon',
+      description: 'Complete 21K run',
+      timeframe: '4 months',
+      progress: 60,
+      milestones: '5K done, 10K in progress'
+    },
+    {
+      id: '3',
+      title: 'Read 24 Books This Year',
+      description: 'Two books per month',
+      timeframe: '12 months',
+      progress: 8,
+      milestones: '2 books completed so far'
     }
   ]);
 
-  const [financeEntries, setFinanceEntries] = useState<FinanceEntry[]>([]);
+  const [financeEntries, setFinanceEntries] = useState<FinanceEntry[]>([
+    {
+      id: '1',
+      type: 'income',
+      category: 'Salary',
+      amount: 4500,
+      description: 'Monthly salary',
+      date: new Date().toISOString().split('T')[0]
+    },
+    {
+      id: '2',
+      type: 'expense',
+      category: 'Rent',
+      amount: 1200,
+      description: 'Monthly rent',
+      date: new Date().toISOString().split('T')[0]
+    },
+    {
+      id: '3',
+      type: 'expense',
+      category: 'Groceries',
+      amount: 350,
+      description: 'Weekly shopping',
+      date: new Date().toISOString().split('T')[0]
+    }
+  ]);
   
   const [habits, setHabits] = useState<Habit[]>([
     {
@@ -172,6 +261,20 @@ export default function App() {
       name: 'Morning Exercise',
       frequency: 'Daily',
       streak: 7,
+      completedDates: []
+    },
+    {
+      id: '2',
+      name: 'Read for 30 minutes',
+      frequency: 'Daily',
+      streak: 12,
+      completedDates: []
+    },
+    {
+      id: '3',
+      name: 'Meditation',
+      frequency: 'Daily',
+      streak: 5,
       completedDates: []
     }
   ]);
@@ -186,6 +289,16 @@ export default function App() {
       birthday: '1990-05-15',
       notes: 'Met at university. Working on startup.',
       frequency: 'Monthly'
+    },
+    {
+      id: '2',
+      name: 'Mom',
+      category: 'Family',
+      lastContact: '2024-12-28',
+      nextAction: 'Sunday dinner',
+      birthday: '1965-03-22',
+      notes: 'Call every weekend',
+      frequency: 'Weekly'
     }
   ]);
 
@@ -339,6 +452,11 @@ export default function App() {
             tasks={tasks}
             goals={goals}
             habits={habits}
+            notes={notes}
+            financeEntries={financeEntries}
+            relationships={relationships}
+            reviews={reviews}
+            somedayItems={somedayItems}
             onNavigate={setCurrentSection}
           />
         );
