@@ -28,65 +28,112 @@ export function LifeAreaCard({
   return (
     <button
       onClick={() => onNavigate(section)}
-      className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 ${
+      className={`group relative overflow-hidden rounded-3xl p-8 text-left transition-all duration-500 w-full ${
         isDark
-          ? 'bg-[#1a1a1a]/60 border border-[#2a2a2a] hover:bg-[#1a1a1a]/80 hover:border-[#3a3a3a]'
-          : 'bg-white/60 border border-[#e8e3dd] hover:bg-white/90 hover:border-[#d8d3cd]'
-      } backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 active:scale-95 w-full`}
+          ? 'bg-white/5 hover:bg-white/10'
+          : 'bg-white/10 hover:bg-white/15'
+      } backdrop-blur-md border-2 hover:shadow-2xl hover:-translate-y-2 active:scale-95`}
+      style={{
+        borderColor: isDark ? `${accentColor}40` : `${accentColor}30`,
+        boxShadow: isDark 
+          ? `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px ${accentColor}15 inset, 0 0 40px ${accentColor}10` 
+          : `0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px ${accentColor}20 inset, 0 4px 60px rgba(0, 0, 0, 0.05)`
+      }}
     >
-      {/* Accent gradient overlay */}
+      {/* Ambient gradient background */}
       <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+        className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
         style={{
-          background: `linear-gradient(135deg, ${accentColor}20 0%, transparent 100%)`
+          background: `radial-gradient(circle at 50% 0%, ${accentColor}40 0%, transparent 70%)`
         }}
       />
 
-      {/* Icon with accent color */}
-      <div className="relative mb-4">
+      {/* Top edge glow */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`,
+          boxShadow: `0 0 20px ${accentColor}80`
+        }}
+      />
+
+      {/* Icon with enhanced styling */}
+      <div className="relative mb-6">
         <div
-          className={`inline-flex p-3 rounded-xl transition-all duration-300 ${
-            isDark ? 'bg-[#0a0a0a]' : 'bg-[#faf8f6]'
-          }`}
+          className={`inline-flex p-4 rounded-2xl transition-all duration-500 ${
+            isDark ? 'bg-[#0f0f0f]/40' : 'bg-white/40'
+          } backdrop-blur-sm group-hover:scale-110 group-hover:shadow-xl`}
           style={{
-            boxShadow: `0 0 0 0 ${accentColor}40`,
+            border: `1px solid ${accentColor}20`,
+            boxShadow: `0 4px 20px ${accentColor}15, 0 0 0 1px ${accentColor}10 inset`
           }}
         >
           <Icon 
-            className="w-6 h-6 transition-colors duration-300" 
-            style={{ color: accentColor }}
+            className="w-7 h-7 transition-all duration-500 group-hover:scale-110" 
+            style={{ 
+              color: accentColor,
+              filter: `drop-shadow(0 0 8px ${accentColor}40)`
+            }}
           />
         </div>
       </div>
 
       {/* Content */}
-      <div className="relative">
-        <h3 className={`mb-1 tracking-wide ${
-          isDark ? 'text-white' : 'text-[#5a4f45]'
-        }`}>
+      <div className="relative space-y-3">
+        <h3 
+          className={`text-xl tracking-wide transition-colors duration-300 ${
+            isDark ? 'text-white' : 'text-[#5a4f45]'
+          }`}
+        >
           {title}
         </h3>
         
-        <div className={`mb-3 ${
-          isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
-        }`}>
+        <div 
+          className={`text-sm transition-colors duration-300 ${
+            isDark ? 'text-[#8a8a8a]' : 'text-[#a89a8f]'
+          }`}
+        >
           {description}
         </div>
 
         <div 
-          className="text-3xl transition-colors duration-300"
-          style={{ color: accentColor }}
+          className="text-4xl transition-all duration-500 group-hover:scale-105"
+          style={{ 
+            color: accentColor,
+            textShadow: `0 0 20px ${accentColor}30`
+          }}
         >
           {stat}
         </div>
       </div>
 
+      {/* Bottom corner accent */}
+      <div 
+        className="absolute bottom-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at 100% 100%, ${accentColor} 0%, transparent 70%)`
+        }}
+      />
+
       {/* Hover arrow indicator */}
-      <div className={`absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 ${
-        isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
-      }`}>
+      <div 
+        className={`absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 text-xl ${
+          isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
+        }`}
+        style={{
+          textShadow: `0 0 10px ${accentColor}40`
+        }}
+      >
         →
       </div>
+
+      {/* Glass reflection effect */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-1/2 opacity-10 pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, white 0%, transparent 100%)'
+        }}
+      />
     </button>
   );
 }

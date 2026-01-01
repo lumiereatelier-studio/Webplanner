@@ -97,7 +97,7 @@ export function Dashboard({
       stat: activeProjects.length,
       description: 'Active projects',
       section: 'projects' as Section,
-      accentColor: '#8B7355'
+      accentColor: '#6B9080'
     },
     {
       icon: CheckSquare,
@@ -105,7 +105,7 @@ export function Dashboard({
       stat: activeTasks.length,
       description: 'Open tasks',
       section: 'tasks' as Section,
-      accentColor: '#6B9080'
+      accentColor: '#5B9BD5'
     },
     {
       icon: Target,
@@ -116,14 +116,6 @@ export function Dashboard({
       accentColor: '#D4A574'
     },
     {
-      icon: DollarSign,
-      title: 'Finance',
-      stat: balance >= 0 ? `+$${balance.toLocaleString()}` : `-$${Math.abs(balance).toLocaleString()}`,
-      description: 'Current balance',
-      section: 'finance' as Section,
-      accentColor: balance >= 0 ? '#6B9080' : '#C97064'
-    },
-    {
       icon: Activity,
       title: 'Habits',
       stat: `${bestStreak} days`,
@@ -132,12 +124,12 @@ export function Dashboard({
       accentColor: '#9B7E6B'
     },
     {
-      icon: FileText,
-      title: 'Notes',
-      stat: notes.length,
-      description: 'Total notes',
-      section: 'notes' as Section,
-      accentColor: '#A89A8F'
+      icon: DollarSign,
+      title: 'Finance',
+      stat: balance >= 0 ? `+$${balance.toLocaleString()}` : `-$${Math.abs(balance).toLocaleString()}`,
+      description: 'Current balance',
+      section: 'finance' as Section,
+      accentColor: balance >= 0 ? '#6B9080' : '#C97064'
     },
     {
       icon: Users,
@@ -145,7 +137,7 @@ export function Dashboard({
       stat: relationships.length,
       description: 'Connections',
       section: 'relationships' as Section,
-      accentColor: '#D4A574'
+      accentColor: '#E06C75'
     },
     {
       icon: BookOpen,
@@ -161,21 +153,13 @@ export function Dashboard({
       stat: '8 areas',
       description: 'Track wellness',
       section: 'balance' as Section,
-      accentColor: '#6B9080'
-    },
-    {
-      icon: Lightbulb,
-      title: 'Someday',
-      stat: somedayItems.length,
-      description: 'Future ideas',
-      section: 'someday' as Section,
-      accentColor: '#9B7E6B'
+      accentColor: '#61AFEF'
     }
   ];
 
   return (
-    <div className="px-6 py-8 lg:py-12 pb-24 lg:pb-12 min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <div className="px-6 py-8 lg:py-12 pb-24 lg:pb-12 min-h-screen relative">      
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header with Settings */}
         <div className="flex items-start justify-between mb-12">
           <div className="flex-1">
@@ -213,9 +197,9 @@ export function Dashboard({
               {tasksDueToday.length > 0 && (
                 <div className={`rounded-xl p-6 ${
                   isDark 
-                    ? 'bg-[#1a1a1a]/60 border border-[#2a2a2a]' 
-                    : 'bg-white/60 border border-[#e8e3dd]'
-                } backdrop-blur-sm`}>
+                    ? 'bg-white/5 border border-white/10' 
+                    : 'bg-white/15 border border-white/30'
+                } backdrop-blur-md`}>
                   <div className={`text-sm uppercase tracking-wider mb-3 ${
                     isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
                   }`}>
@@ -226,7 +210,7 @@ export function Dashboard({
                       <div 
                         key={task.id}
                         className={`p-3 rounded-lg ${
-                          isDark ? 'bg-[#0a0a0a]' : 'bg-[#faf8f6]'
+                          isDark ? 'bg-white/5' : 'bg-white/30'
                         }`}
                       >
                         <div className={`${isDark ? 'text-white' : 'text-[#5a4f45]'}`}>
@@ -255,9 +239,9 @@ export function Dashboard({
               {habitsToday.length > 0 && (
                 <div className={`rounded-xl p-6 ${
                   isDark 
-                    ? 'bg-[#1a1a1a]/60 border border-[#2a2a2a]' 
-                    : 'bg-white/60 border border-[#e8e3dd]'
-                } backdrop-blur-sm`}>
+                    ? 'bg-white/5 border border-white/10' 
+                    : 'bg-white/15 border border-white/30'
+                } backdrop-blur-md`}>
                   <div className={`text-sm uppercase tracking-wider mb-3 ${
                     isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
                   }`}>
@@ -268,7 +252,7 @@ export function Dashboard({
                       <div 
                         key={habit.id}
                         className={`p-3 rounded-lg ${
-                          isDark ? 'bg-[#0a0a0a]' : 'bg-[#faf8f6]'
+                          isDark ? 'bg-white/5' : 'bg-white/30'
                         }`}
                       >
                         <div className={`${isDark ? 'text-white' : 'text-[#5a4f45]'}`}>
@@ -307,7 +291,7 @@ export function Dashboard({
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {lifeAreas.map((area) => (
               <div key={area.section}>
                 <LifeAreaCard

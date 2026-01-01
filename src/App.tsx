@@ -547,7 +547,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === 'soft' ? 'bg-[#f5f1ed]' : 'bg-[#0a0a0a]'}`}>
+    <div className={`min-h-screen ${theme === 'soft' ? 'bg-gradient-to-br from-[#e8d5ff] via-[#ffd4d4] to-[#fff4e6]' : 'bg-gradient-to-br from-[#1a1614] via-[#2a1a1a] to-[#1a1a2a]'}`}>
       {showWelcome && <WelcomeModal theme={theme} onClose={handleCloseWelcome} />}
       <ThemeToggle theme={theme} onToggle={toggleTheme} />
       <Navigation

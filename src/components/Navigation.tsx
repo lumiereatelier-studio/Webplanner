@@ -30,14 +30,14 @@ export function Navigation({ theme, currentSection, onNavigate }: NavigationProp
     <>
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 z-40 px-6 py-4 ${
-        isDark ? 'bg-[#0a0a0a] border-b border-[#2a2a2a]' : 'bg-[#f5f1ed] border-b border-[#e8e3dd]'
+        isDark ? 'bg-[#1a1614] border-b border-[#2a2a2a]' : 'bg-white border-b border-[#e8e3dd]'
       }`}>
         <Logo theme={theme} size="sm" />
       </div>
 
       {/* Sidebar */}
       <div className={`fixed left-0 top-0 bottom-0 w-64 z-30 ${
-        isDark ? 'bg-[#0a0a0a] border-r border-[#2a2a2a]' : 'bg-white border-r border-[#e8e3dd]'
+        isDark ? 'bg-[#1a1614] border-r border-[#2a2a2a]' : 'bg-white border-r border-[#e8e3dd]'
       } hidden lg:block`}>
         <div className="p-8">
           <div className="mb-12">
@@ -74,7 +74,7 @@ export function Navigation({ theme, currentSection, onNavigate }: NavigationProp
 
       {/* Mobile Bottom Nav */}
       <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 ${
-        isDark ? 'bg-[#0a0a0a] border-t border-[#2a2a2a]' : 'bg-white border-t border-[#e8e3dd]'
+        isDark ? 'bg-[#1a1614] border-t border-[#2a2a2a]' : 'bg-white border-t border-[#e8e3dd]'
       }`}>
         <div className="flex justify-around py-2">
           {navItems.slice(0, 5).map((item) => {
