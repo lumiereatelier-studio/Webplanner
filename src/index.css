@@ -10,6 +10,7 @@
       --tw-scale-z: 1;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
+      --tw-leading: initial;
       --tw-tracking: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
@@ -90,6 +91,7 @@
     --font-weight-medium: 500;
     --tracking-wide: .025em;
     --tracking-wider: .05em;
+    --leading-tight: 1.25;
     --default-transition-duration: .15s;
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-sans);
@@ -407,6 +409,10 @@
 }
 
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
+
   .absolute {
     position: absolute;
   }
@@ -609,6 +615,10 @@
     height: calc(var(--spacing) * 8);
   }
 
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
@@ -651,6 +661,10 @@
 
   .w-8 {
     width: calc(var(--spacing) * 8);
+  }
+
+  .w-10 {
+    width: calc(var(--spacing) * 10);
   }
 
   .w-12 {
@@ -1133,6 +1147,15 @@
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
 
+  .text-\[10px\] {
+    font-size: 10px;
+  }
+
+  .leading-tight {
+    --tw-leading: var(--leading-tight);
+    line-height: var(--leading-tight);
+  }
+
   .tracking-\[0\.1em\] {
     --tw-tracking: .1em;
     letter-spacing: .1em;
@@ -1182,12 +1205,20 @@
     color: #a89a8f;
   }
 
+  .text-\[\#b4b4b4\] {
+    color: #b4b4b4;
+  }
+
   .text-\[\#c9bfb5\] {
     color: #c9bfb5;
   }
 
   .text-\[\#e0e0e0\] {
     color: #e0e0e0;
+  }
+
+  .text-\[\#e8e8e8\] {
+    color: #e8e8e8;
   }
 
   .text-black {
@@ -1721,6 +1752,11 @@ html {
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false
 }
 
 @property --tw-tracking {

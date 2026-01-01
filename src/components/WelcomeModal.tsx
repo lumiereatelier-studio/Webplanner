@@ -2,6 +2,7 @@ import React from 'react';
 import { X, CheckCircle, Download } from 'lucide-react';
 import { Theme } from '../App';
 import { BRANDING } from '../config/branding';
+import { Logo } from './Logo';
 
 interface WelcomeModalProps {
   theme: Theme;
@@ -22,15 +23,13 @@ export function WelcomeModal({ theme, onClose }: WelcomeModalProps) {
         }`}>
           <div className="flex items-start justify-between">
             <div>
-              <h2 className={`text-2xl mb-2 ${
-                isDark ? 'text-white' : 'text-[#5a4f45]'
-              }`}>
-                Welcome to {BRANDING.appName}
-              </h2>
+              <div className="mb-4">
+                <Logo theme={theme} size="lg" />
+              </div>
               <p className={`text-sm ${
                 isDark ? 'text-[#a0a0a0]' : 'text-[#a89a8f]'
               }`}>
-                {BRANDING.tagline}
+                Your comprehensive life management system
               </p>
             </div>
             <button

@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, FolderKanban, CheckSquare, FileText, Target, DollarSign, Activity, Users, BookOpen, PieChart, Lightbulb } from 'lucide-react';
 import { Theme, Section } from '../App';
+import { Logo } from './Logo';
 
 interface NavigationProps {
   theme: Theme;
@@ -31,11 +32,7 @@ export function Navigation({ theme, currentSection, onNavigate }: NavigationProp
       <div className={`lg:hidden fixed top-0 left-0 right-0 z-40 px-6 py-4 ${
         isDark ? 'bg-[#0a0a0a] border-b border-[#2a2a2a]' : 'bg-[#f5f1ed] border-b border-[#e8e3dd]'
       }`}>
-        <h1 className={`tracking-[0.3em] uppercase text-sm ${
-          isDark ? 'text-[#a0a0a0]' : 'text-[#8b7e74]'
-        }`}>
-          Life Admin
-        </h1>
+        <Logo theme={theme} size="sm" />
       </div>
 
       {/* Sidebar */}
@@ -43,11 +40,9 @@ export function Navigation({ theme, currentSection, onNavigate }: NavigationProp
         isDark ? 'bg-[#0a0a0a] border-r border-[#2a2a2a]' : 'bg-white border-r border-[#e8e3dd]'
       } hidden lg:block`}>
         <div className="p-8">
-          <h1 className={`tracking-[0.3em] uppercase mb-12 ${
-            isDark ? 'text-[#a0a0a0]' : 'text-[#8b7e74]'
-          }`}>
-            Life Admin
-          </h1>
+          <div className="mb-12">
+            <Logo theme={theme} size="md" />
+          </div>
 
           <nav className="space-y-2">
             {navItems.map((item) => {
