@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import { LifeAreaCard } from './LifeAreaCard';
 import { SettingsMenu } from './SettingsMenu';
-import { motion } from 'motion/react';
 
 interface DashboardProps {
   theme: Theme;
@@ -180,11 +179,7 @@ export function Dashboard({
         {/* Header with Settings */}
         <div className="flex items-start justify-between mb-12">
           <div className="flex-1">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="animate-fade-in">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className={`w-5 h-5 ${isDark ? 'text-[#a0a0a0]' : 'text-[#8b7e74]'}`} />
                 <h1 className={`tracking-[0.2em] uppercase ${
@@ -196,19 +191,14 @@ export function Dashboard({
               <div className={`text-sm ${isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'}`}>
                 {dayOfWeek}, {fullDate}
               </div>
-            </motion.div>
+            </div>
           </div>
           <SettingsMenu theme={theme} />
         </div>
 
         {/* Today's Focus Section */}
         {(tasksDueToday.length > 0 || habitsToday.length > 0) && (
-          <motion.div 
-            className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="mb-12 animate-fade-in">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className={`w-5 h-5 ${isDark ? 'text-[#a0a0a0]' : 'text-[#8b7e74]'}`} />
               <h2 className={`tracking-wider uppercase ${
@@ -303,15 +293,11 @@ export function Dashboard({
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Life Areas Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div>
           <div className="flex items-center gap-2 mb-6">
             <PieChart className={`w-5 h-5 ${isDark ? 'text-[#a0a0a0]' : 'text-[#8b7e74]'}`} />
             <h2 className={`tracking-wider uppercase ${
@@ -322,13 +308,8 @@ export function Dashboard({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {lifeAreas.map((area, index) => (
-              <motion.div
-                key={area.section}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-              >
+            {lifeAreas.map((area) => (
+              <div key={area.section}>
                 <LifeAreaCard
                   theme={theme}
                   icon={area.icon}
@@ -339,10 +320,10 @@ export function Dashboard({
                   accentColor={area.accentColor}
                   onNavigate={onNavigate}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

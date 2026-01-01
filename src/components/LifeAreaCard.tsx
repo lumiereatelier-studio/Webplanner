@@ -1,7 +1,6 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { Theme, Section } from '../App';
-import { motion } from 'motion/react';
 
 interface LifeAreaCardProps {
   theme: Theme;
@@ -27,15 +26,13 @@ export function LifeAreaCard({
   const isDark = theme === 'noir';
 
   return (
-    <motion.button
+    <button
       onClick={() => onNavigate(section)}
       className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 ${
         isDark
           ? 'bg-[#1a1a1a]/60 border border-[#2a2a2a] hover:bg-[#1a1a1a]/80 hover:border-[#3a3a3a]'
           : 'bg-white/60 border border-[#e8e3dd] hover:bg-white/90 hover:border-[#d8d3cd]'
-      } backdrop-blur-sm hover:shadow-xl hover:-translate-y-1`}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      } backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 active:scale-95 w-full`}
     >
       {/* Accent gradient overlay */}
       <div 
@@ -90,6 +87,6 @@ export function LifeAreaCard({
       }`}>
         →
       </div>
-    </motion.button>
+    </button>
   );
 }
