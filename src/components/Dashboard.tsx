@@ -195,11 +195,16 @@ export function Dashboard({
             <div className="grid md:grid-cols-2 gap-4">
               {/* Tasks Due Today */}
               {tasksDueToday.length > 0 && (
-                <div className={`rounded-xl p-6 ${
-                  isDark 
-                    ? 'bg-white/5 border border-white/10' 
-                    : 'bg-white/15 border border-white/30'
-                } backdrop-blur-md`}>
+                <div 
+                  className="rounded-2xl p-6 backdrop-blur-[6px] border border-transparent"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.00)',
+                    borderRadius: '16px',
+                    boxShadow: isDark 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                      : '0 8px 24px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.3)'
+                  }}
+                >
                   <div className={`text-sm uppercase tracking-wider mb-3 ${
                     isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
                   }`}>
@@ -209,9 +214,10 @@ export function Dashboard({
                     {tasksDueToday.slice(0, 3).map(task => (
                       <div 
                         key={task.id}
-                        className={`p-3 rounded-lg ${
-                          isDark ? 'bg-white/5' : 'bg-white/30'
-                        }`}
+                        className={`p-3 rounded-lg backdrop-blur-[4px]`}
+                        style={{
+                          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255, 255, 255, 0.2)'
+                        }}
                       >
                         <div className={`${isDark ? 'text-white' : 'text-[#5a4f45]'}`}>
                           {task.title}
@@ -237,11 +243,16 @@ export function Dashboard({
 
               {/* Habits Pending */}
               {habitsToday.length > 0 && (
-                <div className={`rounded-xl p-6 ${
-                  isDark 
-                    ? 'bg-white/5 border border-white/10' 
-                    : 'bg-white/15 border border-white/30'
-                } backdrop-blur-md`}>
+                <div 
+                  className="rounded-2xl p-6 backdrop-blur-[6px] border border-transparent"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.00)',
+                    borderRadius: '16px',
+                    boxShadow: isDark 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                      : '0 8px 24px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.3)'
+                  }}
+                >
                   <div className={`text-sm uppercase tracking-wider mb-3 ${
                     isDark ? 'text-[#6a6a6a]' : 'text-[#a89a8f]'
                   }`}>
@@ -251,9 +262,10 @@ export function Dashboard({
                     {habitsToday.slice(0, 3).map(habit => (
                       <div 
                         key={habit.id}
-                        className={`p-3 rounded-lg ${
-                          isDark ? 'bg-white/5' : 'bg-white/30'
-                        }`}
+                        className={`p-3 rounded-lg backdrop-blur-[4px]`}
+                        style={{
+                          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255, 255, 255, 0.2)'
+                        }}
                       >
                         <div className={`${isDark ? 'text-white' : 'text-[#5a4f45]'}`}>
                           {habit.name}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LALINE Planner - Color System Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      /* Base background color */
+      background-color: #FAF7F4;
+      
+      /* Organic gradient shapes */
+      background-image: 
+        radial-gradient(
+          ellipse 80% 50% at 10% 20%,
+          rgba(245, 230, 220, 0.4) 0%,
+          transparent 50%
+        ),
+        radial-gradient(
+          ellipse 60% 60% at 90% 80%,
+          rgba(232, 215, 200, 0.3) 0%,
+          transparent 50%
+        );
+      
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 300;
+      color: #3D3630;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #A89584;
+      font-weight: 400;
+    }
+
+    /* Glass card base style */
+    .glass-card {
+      background: rgba(245, 230, 220, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 
+        0 8px 32px rgba(168, 149, 132, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 12px 40px rgba(168, 149, 132, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .glass-card h2 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #5C5248;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .glass-card h3 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #5C5248;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .glass-card p {
+      color: #A89584;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* Grid layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* Color swatches */
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .color-swatch {
+      text-align: center;
+    }
+
+    .color-box {
+      height: 80px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(168, 149, 132, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .color-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #5C5248;
+      margin-bottom: 2px;
+    }
+
+    .color-hex {
+      font-size: 11px;
+      color: #A89584;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Text examples */
+    .text-example {
+      margin: 16px 0;
+    }
+
+    .text-primary {
+      color: #5C5248;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .text-secondary {
+      color: #A89584;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .text-tertiary {
+      color: #C4B5A5;
+      font-size: 14px;
+    }
+
+    /* Button example */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: rgba(212, 181, 160, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #5C5248;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: rgba(212, 181, 160, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(168, 149, 132, 0.2);
+    }
+
+    /* Task item example */
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(248, 240, 232, 0.5);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(168, 149, 132, 0.1);
+      transition: all 0.25s ease;
+    }
+
+    .task-item:hover {
+      background: rgba(248, 240, 232, 0.8);
+      border-color: rgba(168, 149, 132, 0.2);
+    }
+
+    .task-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #D4B5A0;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .task-text {
+      color: #5C5248;
+      font-size: 15px;
+      flex: 1;
+    }
+
+    /* Stat cards */
+    .stat-card {
+      background: rgba(248, 240, 232, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 300;
+      color: #5C5248;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #A89584;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: rgba(168, 149, 132, 0.15);
+      margin: 32px 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(168, 149, 132, 0.15);
+    }
+
+    .footer p {
+      color: #C4B5A5;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 32px;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>LALINE Planner</h1>
+      <p>Color System & Glass Effect Demo</p>
+    </div>
+
+    <!-- Main content card -->
+    <div class="glass-card">
+      <h2>Welcome to Your Calm Space</h2>
+      <p>This is the peach frost glass effect with the organic background gradient. Notice how the card sits softly on the background with subtle depth and warmth.</p>
+      
+      <div class="text-example">
+        <div class="text-primary">Primary Text - Headlines & Important Info</div>
+        <div class="text-secondary">Secondary Text - Body content, descriptions, metadata</div>
+        <div class="text-tertiary">Tertiary Text - Placeholders, subtle hints, timestamps</div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button class="btn">Take Action</button>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <div class="glass-card">
+      <h2>Complete Color Palette</h2>
+      <p>All colors follow LALINE principles: warm, soft, harmonious, and purposeful.</p>
+      
+      <div class="color-palette">
+        <div class="color-swatch">
+          <div class="color-box" style="background: #FAF7F4;"></div>
+          <div class="color-name">Base</div>
+          <div class="color-hex">#FAF7F4</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #F5EDE6;"></div>
+          <div class="color-name">Subtle</div>
+          <div class="color-hex">#F5EDE6</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #F5E6DC;"></div>
+          <div class="color-name">Glass Peach</div>
+          <div class="color-hex">#F5E6DC</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #F8F0E8;"></div>
+          <div class="color-name">Glass Cream</div>
+          <div class="color-hex">#F8F0E8</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #5C5248;"></div>
+          <div class="color-name">Text Primary</div>
+          <div class="color-hex">#5C5248</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #A89584;"></div>
+          <div class="color-name">Text Secondary</div>
+          <div class="color-hex">#A89584</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #C4B5A5;"></div>
+          <div class="color-name">Text Tertiary</div>
+          <div class="color-hex">#C4B5A5</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #D4B5A0;"></div>
+          <div class="color-name">Accent Warm</div>
+          <div class="color-hex">#D4B5A0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid examples -->
+    <div class="grid">
+      <div class="glass-card">
+        <h2>Today's Tasks</h2>
+        <div class="divider"></div>
+        
+        <div class="task-item">
+          <div class="task-checkbox"></div>
+          <div class="task-text">Finish LALINE color system</div>
+        </div>
+        <div class="task-item">
+          <div class="task-checkbox"></div>
+          <div class="task-text">Review calibration rules</div>
+        </div>
+        <div class="task-item">
+          <div class="task-checkbox"></div>
+          <div class="task-text">Document design doctrine</div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h2>This Week</h2>
+        <div class="divider"></div>
+        
+        <div class="grid" style="gap: 16px; grid-template-columns: repeat(3, 1fr);">
+          <div class="stat-card">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Tasks Done</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Goals</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typography hierarchy -->
+    <div class="glass-card">
+      <h2>Typography Hierarchy</h2>
+      <p>Clear, confident, readable at every level.</p>
+      
+      <h3>Authority Through Type</h3>
+      <p>Notice how each level has clear distinction without being harsh. The warm clay tones provide authority while maintaining the calm aesthetic.</p>
+      
+      <div class="divider"></div>
+      
+      <p style="font-size: 14px; color: #C4B5A5; font-style: italic;">
+        "Design with authority means making decisions and trusting them. LALINE principle: Authority."
+      </p>
+    </div>
+
+    <!-- LALINE principles applied -->
+    <div class="glass-card">
+      <h2>LALINE Principles in Action</h2>
+      
+      <h3>✦ Silence</h3>
+      <p>Generous spacing, soft colors, breathing room. Nothing screams for attention.</p>
+      
+      <h3>✦ Authority</h3>
+      <p>Clear hierarchy, confident decisions. You know what's important.</p>
+      
+      <h3>✦ Constraint</h3>
+      <p>Limited palette (warm neutrals), focused choices, no visual chaos.</p>
+      
+      <h3>✦ Pacing</h3>
+      <p>Smooth transitions (300ms), organic gradients, human-speed interactions.</p>
+    </div>
+
+    <div class="footer">
+      <p>LALINE Color System Demo • Authority • Constraint • Pacing • Silence</p>
+      <p style="margin-top: 8px; font-size: 12px;">Use these exact values in your planner for consistent, beautiful design.</p>
+    </div>
+  </div>
+</body>
+</html>

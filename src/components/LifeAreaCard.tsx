@@ -28,16 +28,13 @@ export function LifeAreaCard({
   return (
     <button
       onClick={() => onNavigate(section)}
-      className={`group relative overflow-hidden rounded-3xl p-8 text-left transition-all duration-500 w-full ${
-        isDark
-          ? 'bg-white/5 hover:bg-white/10'
-          : 'bg-white/10 hover:bg-white/15'
-      } backdrop-blur-md border-2 hover:shadow-2xl hover:-translate-y-2 active:scale-95`}
+      className={`group relative overflow-hidden rounded-2xl p-8 text-left transition-all duration-500 w-full backdrop-blur-[6px] border border-transparent hover:shadow-2xl hover:-translate-y-2 active:scale-95`}
       style={{
-        borderColor: isDark ? `${accentColor}40` : `${accentColor}30`,
+        background: 'rgba(0, 0, 0, 0.00)',
+        borderRadius: '16px',
         boxShadow: isDark 
-          ? `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px ${accentColor}15 inset, 0 0 40px ${accentColor}10` 
-          : `0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px ${accentColor}20 inset, 0 4px 60px rgba(0, 0, 0, 0.05)`
+          ? `0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 40px ${accentColor}08` 
+          : `0 8px 32px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 4px 60px rgba(0, 0, 0, 0.03)`
       }}
     >
       {/* Ambient gradient background */}
