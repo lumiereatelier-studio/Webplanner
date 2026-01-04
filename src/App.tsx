@@ -6,7 +6,17 @@ import WelcomeScreen from './imports/FrostGlass_Option3_ModernApartment';
 // Dashboard Cards
 import DashboardCards from './components/DashboardCards';
 
+// Design System (for development)
+import DesignSystem from './DesignSystem';
+
 export default function App() {
+  // Toggle to view Design System instead of main app
+  const showDesignSystem = window.location.search.includes('design-system');
+
+  if (showDesignSystem) {
+    return <DesignSystem />;
+  }
+
   return (
     <div className="w-full">
       
